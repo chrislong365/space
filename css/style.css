@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-position: center bottom;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1610296669228-602fa827fc1f?auto=format&fit=crop&w=2560&max-h=770&crop=bottom");
+    background-size: cover;
+    /*background-position: 0px -20px;*/
+    /*background-image: url("https://images.unsplash.com/photo-1509565840034-3c385bbe6451?auto=format&fit=crop&w=2560");*/
+}
+
+canvas {
+    display: block;
+}
+
+#canvas_container {
+    width: 100%;
+    height: 100vh;
+}
+
+#fullscreen {
+    position: absolute;
+    bottom: 5%;
+    left: 95%;
+    transform: translateX(-50%);
+    border: 1px solid white;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.9em;
+    background: #000000;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+#fullscreen:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+ @media only screen and (max-width: 600px) {
+#fullscreen {
+    left: 50%;
+  }
+}

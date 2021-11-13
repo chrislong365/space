@@ -1,29 +1,27 @@
-let renderer,
-    camera,
-    planet,
-    moon,
-    sphereBg,
-    terrainGeometry,
-    container = document.getElementById("canvas_container"),
-    timeout_Debounce,
-    frame = 0,
-    cameraDx = 0.05,
-    count = 0,
-    t = 0;
-
-/*   Lines values  */
+let renderer;
+let camera;
+let planet;
+let moon;
+let sphereBg;
+let terrainGeometry;
+let container = document.getElementById("canvas_container");
+let timeout_Debounce;
+let frame = 0;
+let cameraDx = 0.05;
+let count = 0;
+let t = 0;
 let lineTotal = 100;
 let linesGeometry = new THREE.BufferGeometry();
+
 linesGeometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(6 * lineTotal), 3));
 linesGeometry.setAttribute("velocity", new THREE.BufferAttribute(new Float32Array(2 * lineTotal), 1));
+
 let l_positionAttr = linesGeometry.getAttribute("position");
 let l_vertex_Array = linesGeometry.getAttribute("position").array;
 let l_velocity_Array = linesGeometry.getAttribute("velocity").array;
 
-
 init();
 animate();
-
 
 function init() {
     scene = new THREE.Scene();
@@ -54,16 +52,16 @@ function init() {
     switch (temp) {
         case 0:
             texturePlanet = loader.load('https://images.unsplash.com/photo-1629788959554-ef4502a45e7d?auto=format&fit=crop&w=1000');
-        break;
+            break;
         case 1:
             texturePlanet = loader.load('https://images.unsplash.com/photo-1542407424724-5426773d65a5?auto=format&fit=crop&w=1000');
-        break;
+            break;
         case 2:
             texturePlanet = loader.load('https://images.unsplash.com/photo-1530982011887-3cc11cc85693?auto=format&fit=crop&w=1000');
-        break;
+            break;
         case 3:
             texturePlanet = loader.load('https://images.unsplash.com/photo-1596125889454-ffd2999b4ab5?auto=format&fit=crop&w=1000');
-        break;
+            break;
     }
 
     texturePlanet.anisotropy = 16;
@@ -139,9 +137,11 @@ function init() {
     terrain_line.rotation.z = THREE.Math.degToRad(90);
     scene.add(terrain_line);
 
+    stars()
 
+}
 
-    //  Stars
+function stars(){
     for (let i = 0; i < lineTotal; i++) {
         let x = THREE.MathUtils.randInt(-100, 100);
         let y = THREE.MathUtils.randInt(10, 40);
@@ -166,31 +166,26 @@ function init() {
 }
 
 
-
-
 function animate() {
-    planet.rotation.y += 0.002;
+    planet.rotation.y += 0.004;
     sphereBg.rotation.x += 0.002;
     sphereBg.rotation.y += 0.002;
     sphereBg.rotation.z += 0.002;
 
-
-    // Moon Animation
-    moon.rotation.y -= 0.007;
-    moon.rotation.x -= 0.007;
+    moon.rotation.y -= 0.017;
+    moon.rotation.x -= 0.027;
     moon.position.x = 15 * Math.cos(t) + 0;
     moon.position.z = 20 * Math.sin(t) - 35;
     t += 0.015;
 
 
-    // Terrain Animation  
     let t_vertex_Array = terrainGeometry.getAttribute("position").array;
     let t_myZ_Array = terrainGeometry.getAttribute("myZ").array;
 
     for (let i = 0; i < t_vertex_Array.length; i++) {
         if (i >= 210 && i <= 250) t_vertex_Array[i * 3 + 2] = 0;
         else {
-            t_vertex_Array[i * 3 + 2] = Math.sin((i + count * 0.0003)) * (t_myZ_Array[i] - (t_myZ_Array[i] * 0.5));
+            t_vertex_Array[i * 3 + 2] = Math.sin((i + count * 0.0002)) * (t_myZ_Array[i] - (t_myZ_Array[i] * 0.2));
             count += 0.1;
         }
     }
@@ -244,9 +239,8 @@ function onWindowResize() {
 
 
 
-/*     Fullscreen btn     */
 let fullscreen;
-let fsEnter = document.getElementById('fullscr');
+let fsEnter = document.getElementById('fullscreen');
 fsEnter.addEventListener('click', function(e) {
     e.preventDefault();
     if (!fullscreen) {
@@ -256,6 +250,6 @@ fsEnter.addEventListener('click', function(e) {
     } else {
         fullscreen = false;
         document.exitFullscreen();
-        fsEnter.innerHTML = "Go Fullscreen";
+        fsEnter.innerHTML = "Fullscreen";
     }
 });
